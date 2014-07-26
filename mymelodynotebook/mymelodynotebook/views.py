@@ -7,26 +7,21 @@ from django.contrib.auth import logout
 
 def index(request):
 	t = get_template('index.html')
-	html = t.render(RequestContext(request,{'message':'Welcome to MyMelodyNotebook'}))
+	html = t.render(RequestContext(request,{}))
+	#html = t.render(RequestContext(request,{'message':'Welcome to MyMelodyNotebook'}))
 	return HttpResponse(html)
 
-def register(request):
-	id = request.POST['username']
-	passw = request.POST['password']
-	mailid = request.POST['mailid']
-	user = User.objects.create_user(id, mailid, passw)
-	t = get_template('login.html')
-	html = t.render(Context({'id':id ,'pass':passw}))
+def password_change_done(request):
+	t = get_template('registration/password_change_done.html')
+	html = t.render(RequestContext(request,{}))
 	return HttpResponse(html)
 
-@login_required
-def home(request):
-	t = get_template('home.html')
-	html = t.render(Context({'message':'Home page'}))
+def password_reset_done(request):
+	t = get_template('registration/password_reset_done.html')
+	html = t.render(RequestContext(request,{}))
 	return HttpResponse(html)
 
-def log_out(request):
-	logout(request)
-	t = get_template('logout.html')
-	html = t.render(Context({'message':'logout page'}))
+def password_reset_complete(request):
+	t = get_template('registration/password_reset_complete.html')
+	html = t.render(RequestContext(request,{}))
 	return HttpResponse(html)

@@ -4,8 +4,8 @@
 {% block content %}
 <div id="login">
 <form method="post" action=".">
-  {% csrf_token %}
   <fieldset class="clearfix">
+  {% csrf_token %}
     <p>Username<br> <span class="fontawesome-user"></span>{{ form.username }} </p>
     <p>Email ID<br> <span class="fontawesome-envelope"></span>{{ form.email }}    </p>
     <p>Password<br> <span class="fontawesome-lock"></span>{{ form.password1 }}</p>

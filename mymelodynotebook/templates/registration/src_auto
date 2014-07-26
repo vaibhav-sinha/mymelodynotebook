@@ -1,0 +1,60 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+
+<head>
+    <link rel="stylesheet" href="/static/css/style.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="/static/css/temp.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700">
+    <!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>My Melody Notebook</title>
+</head>
+
+<body>
+<div id="container">
+    <div class="header">
+    
+    <p class="alignleft">
+        <a href="/index/"><span class="fontawesome-home">My Melody Notebook</a>
+    </p>
+    <p class="alignright">
+        <a href="/index/"><span class="fontawesome-home">Home</a> | 
+
+        
+           <a href="/accounts/login/"><span class="fontawesome-group">Log in</a>
+        
+    </p>
+    
+    </div>
+    <div style="clear: both;"></div>
+
+    <div class="content">
+    
+<div id="login">
+<form method="post" action=".">
+  <fieldset class="clearfix">
+  <input type='hidden' name='csrfmiddlewaretoken' value='EfxjK3dlGFIjtsM2i62uoU52VtktD1SP' />
+<p class="required"><label for="id_username">Username:</label> <input id="id_username" maxlength="30" name="username" type="text" /></p>
+<p class="required"><label for="id_email">E-mail:</label> <input id="id_email" name="email" type="email" /></p>
+<p class="required"><label for="id_password1">Password:</label> <input id="id_password1" name="password1" type="password" /></p>
+<p class="required"><label for="id_password2">Password (again):</label> <input id="id_password2" name="password2" type="password" /></p>
+    <input type="submit" value="Submit" />
+  </fieldset>
+</form>
+</div> <!-- end login -->
+
+    </div>
+
+    <div class="footer">
+    
+    
+    </div>
+</div>
+</body>
+
+</html>
+

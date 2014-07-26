@@ -1,0 +1,17 @@
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Account activation on 127.0.0.1:8000
+From: webmaster@localhost
+To: vaibhav_sinha_bits_07@yahoo.co.in
+Date: Sat, 26 Jul 2014 16:50:34 -0000
+Message-ID: <20140726165034.84537.93333@VAISINHA-M-405Z>
+
+
+Activate account at 127.0.0.1:8000:
+
+http://127.0.0.1:8000/accounts/activate/7827c211844f5542371aaff267353fd1399825d8/
+
+Link is valid for 7 days.
+
+-------------------------------------------------------------------------------

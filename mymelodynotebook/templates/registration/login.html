@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="login">
+<form method="post" action=".">
+  {% csrf_token %} 
+  <fieldset class="clearfix">
+    <p><span class="fontawesome-user"></span>{{ form.username }}</p>
+    <p><span class="fontawesome-lock"></span>{{ form.password }}</p>
+    <input type="submit" value="{% trans 'Log in' %}" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </fieldset>
+</form>
+<p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
+<p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+</div> <!-- end login -->
+
+{% endblock %}

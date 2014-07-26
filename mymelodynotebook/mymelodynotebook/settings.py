@@ -26,8 +26,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL = '/home/'
-LOGIN_URL = '/login/'
+#LOGIN_REDIRECT_URL = '/home/'
+#LOGIN_URL = '/login/'
 
 
 # Application definition
@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'registration',
+    'mymelodynotebook',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'mymelodynotebook.urls'
 WSGI_APPLICATION = 'mymelodynotebook.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '/Users/vaisinha/Documents/workspace/Github/mymelodynotebook/mymelodynotebook/mymelodynotebook/templates',
+    '/Users/vaisinha/Documents/workspace/Github/mymelodynotebook/mymelodynotebook/templates',
 )
 
 # Database

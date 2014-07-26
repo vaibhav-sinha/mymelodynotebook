@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="login">
+<form method="post" action=".">
+  {% csrf_token %}
+  <fieldset class="clearfix">
+    <p>Username<br> <span class="fontawesome-user"></span>{{ form.username }} </p>
+    <p>Email ID<br> <span class="fontawesome-envelope"></span>{{ form.email }}    </p>
+    <p>Password<br> <span class="fontawesome-lock"></span>{{ form.password1 }}</p>
+    <p>Confirm password<br> <span class="fontawesome-lock"></span>{{ form.password2 }}</p>
+    <input type="submit" value="{% trans 'Submit' %}" />
+  </fieldset>
+</form>
+</div> <!-- end login -->
+{% endblock %}

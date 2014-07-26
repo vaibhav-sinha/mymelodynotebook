@@ -1,0 +1,50 @@
+{% load i18n %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+
+<head>
+    <link rel="stylesheet" href="{% static "css/style.css" %}" media="screen" type="text/css" />
+    <link rel="stylesheet" href="{% static "css/temp.css" %}" media="screen" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700">
+    <!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>{% block title %}My Melody Notebook{% endblock %}</title>
+</head>
+
+<body>
+<div id="container">
+    <div class="header">
+    {% block header %}
+    <p class="alignleft">
+        <a href="{% url 'index' %}"><span class="fontawesome-home">{% trans "My Melody Notebook" %}</a>
+    </p>
+    <p class="alignright">
+        <a href="{% url 'index' %}"><span class="fontawesome-home">{% trans "Home" %}</a> | 
+
+        {% if user.is_authenticated %}
+            {% trans "Logged in" %}: {{ user.username }} 
+            (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a> | 
+            <a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>)
+        {% else %}
+           <a href="{% url 'auth_login' %}"><span class="fontawesome-group">{% trans "Log in" %}</a>
+        {% endif %}
+    </p>
+    {% endblock %}
+    </div>
+    <div style="clear: both;"></div>
+
+    <div class="content">
+    {% block content %}{% endblock %}
+    </div>
+
+    <div class="footer">
+    {% block footer %}
+    {% endblock %}
+    </div>
+</div>
+</body>
+
+</html>

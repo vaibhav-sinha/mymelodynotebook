@@ -23,9 +23,28 @@ def home(request):
 
 @login_required
 def add(request):
-	t = get_template('add.html')
-	html = t.render(RequestContext(request,{}))
-	return HttpResponse(html)
+	if(request.method == "POST"):
+		name = request.POST.get("name","")
+		movie = request.POST.get("movie", "")
+		artist = request.POST.get("artist", "")
+		scale = request.POST.get("scale", "")
+		notes = request.FILES['notes']
+		#notes = request.POST.get('notes')
+		tempo = request.POST.get("tempo", "0")
+		form_count = request.POST.get("count", 0)
+		song = Song(name=name,movie=movie,artist=artist,scale=scale,tempo=tempo,notation="",notes=notes,user=request.user)
+		song.save()
+		if(form_count > 0):
+			for i in range(1,int(form_count)+1):
+				ref = Ref(name=request.POST.get("ref_name"+str(i)),link=request.POST.get("ref_url"+str(i)),comment=request.POST.get("ref_comment"+str(i)),category=request.POST.get("ref_category"+str(i)),song=song)
+				ref.save()
+		t = get_template('add_done.html')
+		html = t.render(RequestContext(request,{}))
+		return HttpResponse(html)
+	else:
+		t = get_template('add.html')
+		html = t.render(RequestContext(request,{}))
+		return HttpResponse(html)
 
 @login_required
 def view(request,songid):

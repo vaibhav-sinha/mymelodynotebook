@@ -18,7 +18,13 @@
 <script type='text/javascript'>
 
 function addFields(){
-	if(!addFields.count) addFields.count=2;
+	if(!addFields.count) {
+		addFields.count=1;
+		var link = document.getElementById("filldetails");
+		link.text = "Add another...";
+	}
+	var form_count = document.getElementById("form_count");
+	form_count.value = addFields.count;
 	var container = document.getElementById("add_more");
 	container.appendChild(document.createElement("br"));
 	container.appendChild(document.createElement("br"));
@@ -32,6 +38,7 @@ function addFields(){
 	var ref_name = document.createElement("input");
 	ref_name.type = "text";
 	ref_name.id = "ref_name" + addFields.count;
+	ref_name.name = "ref_name" + addFields.count;
 	container.appendChild(ref_name);
 
 	container.appendChild(document.createTextNode("Link"));
@@ -42,6 +49,7 @@ function addFields(){
 	var ref_url = document.createElement("input");
 	ref_url.type = "url";
 	ref_url.id = "ref_url" + addFields.count;
+	ref_url.name = "ref_url" + addFields.count;
 	container.appendChild(ref_url);
 
 	container.appendChild(document.createTextNode("Comment"));
@@ -52,6 +60,7 @@ function addFields(){
 	var ref_comment = document.createElement("input");
 	ref_comment.type = "text";
 	ref_comment.id = "ref_comment" + addFields.count;
+	ref_comment.name = "ref_comment" + addFields.count;
 	container.appendChild(ref_comment);
 
 	container.appendChild(document.createTextNode("Category"));
@@ -61,6 +70,7 @@ function addFields(){
 	container.appendChild(icon_category);
 	var ref_category = document.createElement("select");
 	ref_category.id = "ref_category" + addFields.count;
+	ref_category.name = "ref_category" + addFields.count;
 	container.appendChild(ref_category);
 
 	var option_o = document.createElement("option");

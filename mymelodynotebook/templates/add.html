@@ -6,29 +6,26 @@
 <h1><span class="blue">&lt;</span>Add New Song<span class="blue">&gt;</span></h1>
 <br><br>
 <div id="login">
-<form method="post" action="/home/">
+<form method="post" action="." enctype="multipart/form-data">
   {% csrf_token %} 
   <fieldset class="clearfix">
-    <p>Name<br><span class="fontawesome-music"></span><input type="text" id="name" required></p>
-    <p>Movie<br><span class="fontawesome-play"></span><input type="text" id="movie" required></p>
-    <p>Artist<br><span class="fontawesome-group"></span><input type="text" id="artist" required></p>
+    <p>Name<br><span class="fontawesome-music"></span><input type="text" id="name" name="name" required></p>
+    <p>Movie<br><span class="fontawesome-play"></span><input type="text" id="movie" name ="movie"></p>
+    <p>Artist<br><span class="fontawesome-group"></span><input type="text" id="artist" name="artist"></p>
     <br><br><br>
-    <p>Scale/Key<br><span class="fontawesome-music"></span><input type="text" id="scale" required></p>
-    <p>Tempo<br><span class="fontawesome-spinner"></span><input type="number" id="tempo" required></p>
-    <p>Notation<br><span class="fontawesome-list-ul"></span><select id="notation" required><option value="indian">Indian</option><option value="western">Western</option>"</select></p>
+    <p>Scale/Key<br><span class="fontawesome-music"></span><input type="text" id="scale" name="scale"></p>
+    <p>Notes<br><span class="fontawesome-music"></span><input type="file" id="notes" name="notes" required></p>
+    <p>Tempo<br><span class="fontawesome-spinner"></span><input type="number" id="tempo" name="tempo"></p>
+<!--    <p>Notation<br><span class="fontawesome-list-ul"></span><select id="notation" required><option value="indian">Indian</option><option value="western">Western</option>"</select></p> -->
     <br><br><br>
-    <h2><b>Add recordings and tutorial videos</b></h2> 
-    <br>
-    <p>Name<br><span class="fontawesome-music"></span><input type="text" id="ref_name1" required></p>
-    <p>Link<br><span class="fontawesome-music"></span><input type="url" id="ref_url1" required></p>
-    <p>Comment<br><span class="fontawesome-music"></span><input type="text" id="comment1" required></p>
-    <p>Category<br><span class="fontawesome-list-ul"></span><select id="category1" required><option value="0">Original</option><option value="1">Tutorial</option><option value="2">Cover</option><option value="3">Your recording</option></select></p>
+    <h2><b>Recordings and tutorial videos</b></h2> 
     <br>
     <div id="add_more" ></div>
-    <a href="#!" id="filldetails" onclick="addFields();">Add another...</a>
+    <a href="#!" id="filldetails" onclick="addFields();" align="">Add...</a>
     <br><br><br>
     <input type="submit" value="{% trans 'Add' %}" />
     <input type="hidden" name="next" value="{{ next }}" />
+    <input type="hidden" name="count" value="0" id="form_count"/>
   </fieldset>
 </form>
 </div> <!-- end login -->

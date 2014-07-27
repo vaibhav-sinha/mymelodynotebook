@@ -6,9 +6,9 @@ class Song(models.Model):
 	movie = models.CharField(max_length=256,blank=True)
 	artist = models.CharField(max_length=256,blank=True)
 	scale = models.CharField(max_length=256,blank=True)
-	tempo = models.IntegerField(blank=True,null=True)
+	tempo = models.CharField(max_length=256,blank=True,null=True)
 	notation = models.CharField(max_length=256,blank=True)
-	notes = models.CharField(max_length=256,blank=True)
+	notes = models.ImageField(max_length=256,blank=True,upload_to='documents/')
 	user = models.ForeignKey(User)
 
 

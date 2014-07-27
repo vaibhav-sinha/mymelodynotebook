@@ -24,25 +24,40 @@ def home(request):
 @login_required
 def add(request):
 	t = get_template('add.html')
-	html = t.render(RequestContext(request,{'songlist':songlist}))
+	html = t.render(RequestContext(request,{}))
 	return HttpResponse(html)
 
 @login_required
 def view(request,songid):
 	t = get_template('view.html')
-	html = t.render(RequestContext(request,{'songid':songid}))
+	result = Song.objects.filter(id=songid)
+	if(result):
+		if(result[0].user.id == request.user.id):
+			html = t.render(RequestContext(request,{'allowed':1}))
+			return HttpResponse(html)
+	html = t.render(Context({'allowed':0}))
 	return HttpResponse(html)
 
 @login_required
 def edit(request,songid):
 	t = get_template('edit.html')
-	html = t.render(RequestContext(request,{'songid':songid}))
+	result = Song.objects.filter(id=songid)
+	if(result):
+		if(result[0].user.id == request.user.id):
+			html = t.render(RequestContext(request,{'allowed':1}))
+			return HttpResponse(html)
+	html = t.render(Context({'allowed':0}))
 	return HttpResponse(html)
 
 @login_required
 def delete(request,songid):
 	t = get_template('delete.html')
-	html = t.render(RequestContext(request,{'songid':songid}))
+	result = Song.objects.filter(id=songid)
+	if(result):
+		if(result[0].user.id == request.user.id):
+			html = t.render(RequestContext(request,{'allowed':1}))
+			return HttpResponse(html)
+	html = t.render(Context({'allowed':0}))
 	return HttpResponse(html)
 
 def password_change_done(request):

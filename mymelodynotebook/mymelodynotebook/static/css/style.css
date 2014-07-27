@@ -79,7 +79,7 @@ p {
 	height: 50px;
 }
 
-#login form input[type="text"], input[type="password"], input[type="email"] {
+#login form input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="url"] {
 	background-color: #3b4148;
 	border-radius: 0px 3px 3px 0px;
 	color: #606468;
@@ -110,4 +110,21 @@ p {
 
 #login > p span {
 	padding-left: 5px;
+}
+
+select {
+padding:3px;
+margin: 0;
+background:#3b4148;
+color:#606468;
+border:none;
+outline:none;
+width: 230px;
+height: 50px;
+display: inline-block;
+	 -webkit-appearance:none;
+	 -moz-appearance:none;
+appearance:none;
+cursor:pointer;
+font-size: 20px;
 }

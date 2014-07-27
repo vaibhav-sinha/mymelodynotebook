@@ -14,7 +14,6 @@
 <![endif]-->
 <title>{% block title %}My Melody Notebook{% endblock %}</title>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type='text/javascript'>
 
 function addFields(){
@@ -24,7 +23,7 @@ function addFields(){
 	container.appendChild(document.createElement("br"));
 
 	// Create an <input> element, set its type and name attributes
-	container.appendChild(document.createTextNode("Name"));
+	container.appendChild(document.createTextNode("Name");
 	container.appendChild(document.createElement("br"));
 	var icon_name = document.createElement("span");
 	icon_name.class = "fontawesome-music";
@@ -34,17 +33,17 @@ function addFields(){
 	ref_name.id = "ref_name" + addFields.count;
 	container.appendChild(ref_name);
 
-	container.appendChild(document.createTextNode("Link"));
+	container.appendChild(document.createTextNode("Link");
 	container.appendChild(document.createElement("br"));
 	var icon_url = document.createElement("span");
-	icon_url.class = "fontawesome-music";
+	icon.class_url = "fontawesome-music";
 	container.appendChild(icon_url);
 	var ref_url = document.createElement("input");
 	ref_url.type = "url";
 	ref_url.id = "ref_url" + addFields.count;
 	container.appendChild(ref_url);
 
-	container.appendChild(document.createTextNode("Comment"));
+	container.appendChild(document.createTextNode("Comment");
 	container.appendChild(document.createElement("br"));
 	var icon_comment = document.createElement("span");
 	icon_comment.class = "fontawesome-music";
@@ -54,7 +53,7 @@ function addFields(){
 	ref_comment.id = "ref_comment" + addFields.count;
 	container.appendChild(ref_comment);
 
-	container.appendChild(document.createTextNode("Category"));
+	container.appendChild(document.createTextNode("Category");
 	container.appendChild(document.createElement("br"));
 	var icon_category = document.createElement("span");
 	icon_category.class = "fontawesome-music";

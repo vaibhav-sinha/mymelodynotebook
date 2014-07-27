@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 
-from mymelodynotebook.views import index,password_change_done,password_reset_done, password_reset_complete
+from mymelodynotebook.views import index,home,view,edit,delete,add,password_change_done,password_reset_done, password_reset_complete
 
 admin.autodiscover()
 
@@ -13,6 +13,11 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^index/$', index, name="index"),
+    url(r'^home/$', home, name="home"),
+    url(r'^add/$', add, name="add"),
+    url(r'^view/(\d+)$', view, name="view"),
+    url(r'^edit/(\d+)$', edit, name="edit"),
+    url(r'^delete/(\d+)$', delete, name="delete"),
     url(r'^$', index, name="index"),
     url(r'^password_change_done$', password_change_done, name="password_change_done"),
     url(r'^password_reset_done$', password_reset_done, name="password_reset_done"),

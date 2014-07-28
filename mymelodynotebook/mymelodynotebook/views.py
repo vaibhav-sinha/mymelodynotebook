@@ -15,8 +15,8 @@ def index(request):
 def home(request):
 	t = get_template('home.html')
 	songlist = []
-	result = Song.objects.all()
-	for song in (result):
+	songs = Song.objects.all()
+	for song in (songs):
 		songlist.append({'name':song.name,'id':song.id})
 	html = t.render(RequestContext(request,{'songlist':songlist}))
 	return HttpResponse(html)
@@ -49,34 +49,83 @@ def add(request):
 @login_required
 def view(request,songid):
 	t = get_template('view.html')
-	result = Song.objects.filter(id=songid)
-	if(result):
-		if(result[0].user.id == request.user.id):
-			html = t.render(RequestContext(request,{'allowed':1}))
+	songs = Song.objects.filter(id=songid)
+	if(songs):
+		if(songs[0].user.id == request.user.id):
+			html = t.render(RequestContext(request,{'unallowed':''}))
 			return HttpResponse(html)
-	html = t.render(Context({'allowed':0}))
+	html = t.render(Context({'unallowed':'You dont own this song. How did you get here?'}))
 	return HttpResponse(html)
 
 @login_required
 def edit(request,songid):
-	t = get_template('edit.html')
-	result = Song.objects.filter(id=songid)
-	if(result):
-		if(result[0].user.id == request.user.id):
-			html = t.render(RequestContext(request,{'allowed':1}))
-			return HttpResponse(html)
-	html = t.render(Context({'allowed':0}))
-	return HttpResponse(html)
+	if(request.method == "POST"):
+		t = get_template('edit_done.html')
+		songs = Song.objects.filter(id=songid)
+		if(songs):
+			if(songs[0].user.id == request.user.id):
+				#Business logic here
+				songs[0].name = request.POST.get("name","")
+				songs[0].movie = request.POST.get("movie", "")
+				songs[0].artist = request.POST.get("artist", "")
+				songs[0].scale = request.POST.get("scale", "")
+				songs[0].notes = request.FILES['notes']
+				songs[0].tempo = request.POST.get("tempo", "0")
+				songs[0].save()
+				form_count = int(request.POST.get("count", 0))
+				refs = Ref.objects.filter(song=songs[0])
+				if(form_count > len(refs)):
+					update = len(refs)
+					add = form_count - len(refs)
+					delete = 0
+				if(form_count < len(refs)):
+					update = len(refs)
+					add = 0
+					delete = len(refs) - form_count
+				if(form_count == len(refs)):
+					update = len(refs)
+					add = 0
+					delete = 0
+				for i in range(1,update+1):
+					refs[i-1].name = request.POST.get("ref_name"+str(i))
+					refs[i-1].link = request.POST.get("ref_url"+str(i))
+					refs[i-1].comment = request.POST.get("ref_comment"+str(i))
+					refs[i-1].category = request.POST.get("ref_category"+str(i))
+					refs[i-1].save()
+				for i in range(update+1,update+add+1):
+					ref = Ref(name=request.POST.get("ref_name"+str(i)),link=request.POST.get("ref_url"+str(i)),comment=request.POST.get("ref_comment"+str(i)),category=request.POST.get("ref_category"+str(i)),song=songs[0])
+					ref.save()
+				for i in range(update+1,update+delete+1):
+					refs[i].delete()
+				#Business logic ends
+				html = t.render(RequestContext(request,{'unallowed':''}))
+			else:
+				html = t.render(RequestContext(request,{'unallowed':'You dont own this song. How did you get here?'}))
+		else:
+			html = t.render(RequestContext(request,{'unallowed':'No such song. How did you get here?'}))
+		return HttpResponse(html)
+	else:
+		t = get_template('edit.html')
+		songs = Song.objects.filter(id=songid)
+		if(songs):
+			refs = Ref.objects.filter(song=songs[0])
+			if(songs[0].user.id == request.user.id):
+				html = t.render(RequestContext(request,{'unallowed':'','song':songs[0],'refs':refs}))
+			else:
+				html = t.render(RequestContext(request,{'unallowed':'You dont own this song. How did you get here?'}))
+		else:
+			html = t.render(RequestContext(request,{'unallowed':'No such song. How did you get here?'}))
+		return HttpResponse(html)
 
 @login_required
 def delete(request,songid):
 	t = get_template('delete.html')
-	result = Song.objects.filter(id=songid)
-	if(result):
-		if(result[0].user.id == request.user.id):
-			html = t.render(RequestContext(request,{'allowed':1}))
+	songs = Song.objects.filter(id=songid)
+	if(songs):
+		if(songs[0].user.id == request.user.id):
+			html = t.render(RequestContext(request,{'unallowed':''}))
 			return HttpResponse(html)
-	html = t.render(Context({'allowed':0}))
+	html = t.render(Context({'unallowed':'You dont own this song. How did you get here?'}))
 	return HttpResponse(html)
 
 def password_change_done(request):

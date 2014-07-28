@@ -2,30 +2,40 @@
 {% load i18n %}
 
 {% block content %}
+
+{% if unallowed %}
+
+{{ unallowed }}
+
+{% else %}
+
 <br><br>
-<h1><span class="blue">&lt;</span>Your Songs<span class="blue">&gt;</span></h1>
+<h1><span class="blue">&lt;</span>Edit Song<span class="blue">&gt;</span></h1>
 <br><br>
-<table class="container">
-<thead>
-<tr>
-<th><h1>Song</h1></th>
-<th><h1>View notes and videos</h1></th>
-<th><h1>Edit notes and videos</h1></th>
-<th><h1>Delete song from list</h1></th>
-</tr>
-</thead>
-<tbody>
-{% for song in songlist %}
-<tr>
-<td>{{song.name}}</td>
-<td><a href="/view/{{song.id}}">View</a></td>
-<td><a href=/edit/{{song.id}}"">Edit</a></td>
-<td><a href=/delete/{{song.id}}"">Delete</a></td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-<br><br>
-<h1><span class="blue"><a href="">Add New Song</a></span></h1>
-<br><br>
+<div id="login">
+<form method="post" action="./{{song.id}}" enctype="multipart/form-data">
+  {% csrf_token %} 
+  <fieldset class="clearfix">
+    <p>Name<br><span class="fontawesome-music"></span><input type="text" id="name" name="name" required></p>
+    <p>Movie<br><span class="fontawesome-play"></span><input type="text" id="movie" name ="movie"></p>
+    <p>Artist<br><span class="fontawesome-group"></span><input type="text" id="artist" name="artist"></p>
+    <br><br><br>
+    <p>Scale/Key<br><span class="fontawesome-music"></span><input type="text" id="scale" name="scale"></p>
+    <p>Notes<br><span class="fontawesome-music"></span><input type="file" id="notes" name="notes" required></p>
+    <p>Tempo<br><span class="fontawesome-spinner"></span><input type="number" id="tempo" name="tempo"></p>
+<!--    <p>Notation<br><span class="fontawesome-list-ul"></span><select id="notation" required><option value="indian">Indian</option><option value="western">Western</option>"</select></p> -->
+    <br><br><br>
+    <h2><b>Recordings and tutorial videos</b></h2> 
+    <br>
+    <div id="add_more" ></div>
+    <a href="#!" id="filldetails" onclick="addFields();">Add...</a>
+    <br><br><br>
+    <input type="submit" value="{% trans 'Edit' %}" />
+    <input type="hidden" name="next" value="{{ next }}" />
+    <input type="hidden" name="count" value="0" id="form_count"/>
+  </fieldset>
+</form>
+</div> <!-- end login -->
+{% endif %}
+
 {% endblock %}

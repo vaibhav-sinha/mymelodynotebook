@@ -52,9 +52,12 @@ def view(request,songid):
 	songs = Song.objects.filter(id=songid)
 	if(songs):
 		if(songs[0].user.id == request.user.id):
-			html = t.render(RequestContext(request,{'unallowed':''}))
-			return HttpResponse(html)
-	html = t.render(Context({'unallowed':'You dont own this song. How did you get here?'}))
+			refs = Ref.objects.filter(song=songs[0])
+			html = t.render(RequestContext(request,{'unallowed':'','song':songs[0],'refs':refs}))
+		else:
+			html = t.render(Context({'unallowed':'You dont own this song. How did you get here?'}))
+	else:
+		html = t.render(Context({'unallowed':'No such song. How did you get here?'}))
 	return HttpResponse(html)
 
 @login_required

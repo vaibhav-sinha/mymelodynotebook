@@ -69,7 +69,7 @@ DATABASES = {
 }
 
 MEDIA_ROOT = "/Users/vaisinha/Documents/workspace/Github/mymelodynotebook/mymelodynotebook/mymelodynotebook/media/"
-MEDIA_URL  = "http://media.mymelodynotebook.com/"
+MEDIA_URL  = "/media/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

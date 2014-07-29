@@ -73,3 +73,23 @@ background: #64AAA4;
 .scale .price {
 color: #64AAA4;
 }
+ 
+h2 {
+	font-size:2em; 
+	font-weight: 300;
+	text-align: center;
+display: block;
+	 line-height:1em;
+	 padding-bottom: 1em;
+color: #FB667A;
+}
+
+h3 {
+	font-size:1em; 
+	font-weight: 300;
+	text-align: center;
+display: block;
+	 line-height:1em;
+	 padding-bottom: 1em;
+}
+

@@ -27,6 +27,20 @@
 <div class="img">
 <img src="http://127.0.0.1:8000/media/{{song.notes}}"  height="1080" width="720"/>
 </div>
+<br><br><br>
+<h1>References</h1>
+<br><br><br>
+
+{% for ref in refs %}
+
+<h2>{{ref.name}}</h2>
+<h3>{{ref.comment}}</h3>
+<div class="img">
+<iframe width="820" height="500" src="http://www.youtube.com/embed/XGSy3_Czz8k" />
+<br><br><br>
+</div>
+
+{% endfor %}
 
 {% endif %}
 

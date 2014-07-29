@@ -36,7 +36,7 @@ def add(request):
 		song.save()
 		if(form_count > 0):
 			for i in range(1,int(form_count)+1):
-				ref = Ref(name=request.POST.get("ref_name"+str(i)),link=request.POST.get("ref_url"+str(i)),comment=request.POST.get("ref_comment"+str(i)),category=request.POST.get("ref_category"+str(i)),song=song)
+				ref = Ref(name=request.POST.get("ref_name"+str(i)),link=(request.POST.get("ref_url"+str(i))).replace("watch?v=","embed/"),comment=request.POST.get("ref_comment"+str(i)),category=request.POST.get("ref_category"+str(i)),song=song)
 				ref.save()
 		t = get_template('add_done.html')
 		html = t.render(RequestContext(request,{}))
@@ -91,12 +91,12 @@ def edit(request,songid):
 					delete = 0
 				for i in range(1,update+1):
 					refs[i-1].name = request.POST.get("ref_name"+str(i))
-					refs[i-1].link = request.POST.get("ref_url"+str(i))
-					refs[i-1].comment = request.POST.get("ref_comment"+str(i))
-					refs[i-1].category = request.POST.get("ref_category"+str(i))
+					refs[i-1].link = (request.POST.get("ref_url"+str(i))).replace("watch?v=","embed/")
+					refs[i-1].comment = request.POST.get("ref_comment"+str(i),"")
+					refs[i-1].category = request.POST.get("ref_category"+str(i),0)
 					refs[i-1].save()
 				for i in range(update+1,update+add+1):
-					ref = Ref(name=request.POST.get("ref_name"+str(i)),link=request.POST.get("ref_url"+str(i)),comment=request.POST.get("ref_comment"+str(i)),category=request.POST.get("ref_category"+str(i)),song=songs[0])
+					ref = Ref(name=request.POST.get("ref_name"+str(i)),link=(request.POST.get("ref_url"+str(i))).replace("watch?v=","embed/"),comment=request.POST.get("ref_comment"+str(i)),category=request.POST.get("ref_category"+str(i)),song=songs[0])
 					ref.save()
 				for i in range(update+1,update+delete+1):
 					refs[i].delete()

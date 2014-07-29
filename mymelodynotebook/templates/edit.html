@@ -16,23 +16,29 @@
 <form method="post" action="./{{song.id}}" enctype="multipart/form-data">
   {% csrf_token %} 
   <fieldset class="clearfix">
-    <p>Name<br><span class="fontawesome-music"></span><input type="text" id="name" name="name" required></p>
-    <p>Movie<br><span class="fontawesome-play"></span><input type="text" id="movie" name ="movie"></p>
-    <p>Artist<br><span class="fontawesome-group"></span><input type="text" id="artist" name="artist"></p>
+    <p>Name<br><span class="fontawesome-music"></span><input type="text" id="name" name="name" value="{{song.name}}" required></p>
+    <p>Movie<br><span class="fontawesome-play"></span><input type="text" id="movie" name ="movie" value="{{song.movie}}" ></p>
+    <p>Artist<br><span class="fontawesome-group"></span><input type="text" id="artist" name="artist" value="{{song.artist}}" ></p>
     <br><br><br>
-    <p>Scale/Key<br><span class="fontawesome-music"></span><input type="text" id="scale" name="scale"></p>
-    <p>Notes<br><span class="fontawesome-music"></span><input type="file" id="notes" name="notes" required></p>
-    <p>Tempo<br><span class="fontawesome-spinner"></span><input type="number" id="tempo" name="tempo"></p>
-<!--    <p>Notation<br><span class="fontawesome-list-ul"></span><select id="notation" required><option value="indian">Indian</option><option value="western">Western</option>"</select></p> -->
+    <p>Scale/Key<br><span class="fontawesome-music"></span><input type="text" id="scale" name="scale" value="{{song.scale}}" ></p>
+    <p>Notes<br><span class="fontawesome-music"></span><input type="file" id="notes" name="notes" value="{{song.notes}}"  required></p>
+    <p>Tempo<br><span class="fontawesome-spinner"></span><input type="number" id="tempo" name="tempo" value="{{song.tempo}}" ></p>
     <br><br><br>
     <h2><b>Recordings and tutorial videos</b></h2> 
     <br>
+    {% for ref in refs %}
+      <p>Name<br><span class="fontawesome-music"></span><input type="text" name="ref_name{{forloop.counter}}" value="{{ref.name}}"  required></p>
+      <p>Link<br><span class="fontawesome-music"></span><input type="url" name="ref_url{{forloop.counter}}" value="{{ref.link}}"  required></p>
+      <p>Comment<br><span class="fontawesome-music"></span><input type="text" name="comment{{forloop.counter}}" value="{{ref.comment}}"  ></p>
+      <p>Category<br><span class="fontawesome-list-ul"></span><select name="category{{forloop.counter}}" value="{{ref.category}}"  required><option value="0">Original</option><option value="1">Tutorial</option><option value="2">Cover</option><option value="3">Your recording</option></select></p>
+      <br><br><br>
+    {% endfor %}
     <div id="add_more" ></div>
-    <a href="#!" id="filldetails" onclick="addFields();">Add...</a>
+    <a href="#!" id="filldetails" onclick="addFields({{refs|length}}+1);">Add...</a>
     <br><br><br>
     <input type="submit" value="{% trans 'Edit' %}" />
     <input type="hidden" name="next" value="{{ next }}" />
-    <input type="hidden" name="count" value="0" id="form_count"/>
+    <input type="hidden" name="count" value="{{refs|length}}" id="form_count"/>
   </fieldset>
 </form>
 </div> <!-- end login -->

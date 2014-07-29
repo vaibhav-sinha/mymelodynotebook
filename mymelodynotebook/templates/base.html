@@ -18,9 +18,10 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type='text/javascript'>
 
-function addFields(){
+function addFields(init_count){
 	if(!addFields.count) {
-		addFields.count=1;
+		addFields.count=init_count;
+		//addFields.count=1;
 		var link = document.getElementById("filldetails");
 		link.text = "Add another...";
 	}

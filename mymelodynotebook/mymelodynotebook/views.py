@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.template import Context, RequestContext
 from django.contrib.auth.models import User
@@ -15,7 +15,7 @@ def index(request):
 def home(request):
 	t = get_template('home.html')
 	songlist = []
-	songs = Song.objects.all()
+	songs = Song.objects.filter(user=request.user)
 	for song in (songs):
 		songlist.append({'name':song.name,'id':song.id})
 	html = t.render(RequestContext(request,{'songlist':songlist}))
@@ -98,7 +98,7 @@ def edit(request,songid):
 				for i in range(update+1,update+delete+1):
 					refs[i].delete()
 				#Business logic ends
-				html = t.render(RequestContext(request,{'unallowed':''}))
+				html = t.render(RequestContext(request,{'unallowed':'Song edited successfully!'}))
 			else:
 				html = t.render(RequestContext(request,{'unallowed':'You dont own this song. How did you get here?'}))
 		else:
@@ -119,14 +119,37 @@ def edit(request,songid):
 
 @login_required
 def delete(request,songid):
-	t = get_template('delete.html')
-	songs = Song.objects.filter(id=songid)
-	if(songs):
-		if(songs[0].user.id == request.user.id):
-			html = t.render(RequestContext(request,{'unallowed':''}))
-			return HttpResponse(html)
-	html = t.render(Context({'unallowed':'You dont own this song. How did you get here?'}))
-	return HttpResponse(html)
+	if(request.method == "POST"):
+		confirm = int(request.POST.get("confirm", 0))
+		if(not confirm):
+			return HttpResponseRedirect("/home/")
+		t = get_template('delete_done.html')
+		songs = Song.objects.filter(id=songid)
+		if(songs):
+			if(songs[0].user.id == request.user.id):
+				#Business logic here
+				refs = Ref.objects.filter(song=songs[0])
+				for i in range(0,len(refs)):
+					refs[i].delete()
+				songs[0].delete()
+				#Business logic ends
+				html = t.render(RequestContext(request,{'unallowed':'Song deleted successfully.'}))
+			else:
+				html = t.render(RequestContext(request,{'unallowed':'You dont own this song. How did you get here?'}))
+		else:
+			html = t.render(RequestContext(request,{'unallowed':'No such song. How did you get here?'}))
+		return HttpResponse(html)
+	else:
+		t = get_template('delete.html')
+		songs = Song.objects.filter(id=songid)
+		if(songs):
+			if(songs[0].user.id == request.user.id):
+				html = t.render(RequestContext(request,{'unallowed':'','song':songs[0]}))
+			else:
+				html = t.render(RequestContext(request,{'unallowed':'You dont own this song. How did you get here?'}))
+		else:
+			html = t.render(RequestContext(request,{'unallowed':'No such song. How did you get here?'}))
+		return HttpResponse(html)
 
 def password_change_done(request):
 	t = get_template('registration/password_change_done.html')

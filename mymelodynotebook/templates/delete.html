@@ -2,30 +2,24 @@
 {% load i18n %}
 
 {% block content %}
-<br><br>
-<h1><span class="blue">&lt;</span>Your Songs<span class="blue">&gt;</span></h1>
-<br><br>
-<table class="container">
-<thead>
-<tr>
-<th><h1>Song</h1></th>
-<th><h1>View notes and videos</h1></th>
-<th><h1>Edit notes and videos</h1></th>
-<th><h1>Delete song from list</h1></th>
-</tr>
-</thead>
-<tbody>
-{% for song in songlist %}
-<tr>
-<td>{{song.name}}</td>
-<td><a href="/view/{{song.id}}">View</a></td>
-<td><a href=/edit/{{song.id}}"">Edit</a></td>
-<td><a href=/delete/{{song.id}}"">Delete</a></td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-<br><br>
-<h1><span class="blue"><a href="">Add New Song</a></span></h1>
-<br><br>
+
+{% if unallowed %}
+
+{{ unallowed }}
+
+{% else %}
+
+<div id="login">
+<form method="post" action="./{{song.id}}" enctype="multipart/form-data">
+  {% csrf_token %} 
+  <fieldset class="clearfix">
+    <p>You want to delete the song {{song.name}}?<br><span class="fontawesome-list-ul"></span><select id="confirm" name="confirm" required><option value="0">No</option><option value="1">Yes</option>"</select></p>
+    <br><br><br>
+    <input type="submit" value="{% trans 'Submit' %}" />
+  </fieldset>
+</form>
+</div> <!-- end login -->
+
+{% endif %}
+
 {% endblock %}
